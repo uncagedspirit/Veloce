@@ -4,7 +4,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: 0 48px;
+  padding: 120px 48px 96px;
 }
 
 .hero-bg {
@@ -146,5 +146,5 @@
 }
 
 @media (max-width: 1024px) {
-  .hero { padding: 0 24px; }
+  .hero { padding: 100px 24px 96px; }
 }
