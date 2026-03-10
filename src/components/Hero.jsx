@@ -6,7 +6,6 @@ const TICKER_ITEMS = [
 ];
 
 export default function Hero() {
-  // Duplicate for seamless infinite scroll
   const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
@@ -35,7 +34,7 @@ export default function Hero() {
         </h1>
 
         <p className="hero-sub">
-          Uncaged Studio crafts high-performance digital experiences for brands
+          Veloce Studio crafts high-performance digital experiences for brands
           that refuse to blend in. From concept to launch — we make it count.
         </p>
 

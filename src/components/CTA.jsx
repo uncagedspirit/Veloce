@@ -16,13 +16,13 @@ export default function CTA() {
           clear scope and quote. No obligation, no fluff.
         </p>
         <div className="cta-actions">
-          <a href="mailto:hello@uncaged.studio" className="btn-dark">
+          <a href="mailto:Veloce.studio@proton.me" className="btn-dark">
             Email Us Directly
           </a>
         </div>
         <p className="cta-contact">
           Or write to{' '}
-          <a href="mailto:hello@uncaged.studio">hello@uncaged.studio</a>
+          <a href="mailto:Veloce.studio@proton.me">Veloce.studio@proton.me</a>
         </p>
       </div>
     </section>

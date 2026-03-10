@@ -13,7 +13,7 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <a href="#" className="nav-logo">
-        UNCAGED<span>.</span>STUDIO
+        VELOCE<span>.</span>STUDIO
       </a>
 
       <ul className="nav-links">

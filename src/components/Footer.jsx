@@ -5,9 +5,9 @@ const SOCIALS = ['X', 'IG', 'LI', 'BE'];
 const NAV_SERVICES = ['Web Design', 'Landing Pages', 'E-Commerce', 'Brand Identity', 'SEO & Growth', 'Web Apps'];
 const NAV_COMPANY  = ['About', 'Work', 'Process', 'Reviews', 'FAQ'];
 const NAV_CONTACT  = [
-  { label: 'hello@uncaged.studio', href: 'mailto:hello@uncaged.studio' },
-  { label: 'Start a Project',      href: '#cta' },
-  { label: 'Request a Quote',      href: '#cta' },
+  { label: 'Veloce.studio@proton.me', href: 'mailto:Veloce.studio@proton.me' },
+  { label: 'Start a Project',         href: '#cta' },
+  { label: 'Request a Quote',         href: '#cta' },
 ];
 
 export default function Footer() {
@@ -17,7 +17,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div className="footer-brand-name">
-            UNCAGED<span>.</span>STUDIO
+            VELOCE<span>.</span>STUDIO
           </div>
           <p className="footer-tagline">
             We design and build digital experiences that drive real growth for
@@ -67,7 +67,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <div className="footer-copy">
-          © 2025 Uncaged<span>.</span>Studio — All rights reserved
+          © 2025 Veloce<span>.</span>Studio — All rights reserved
         </div>
         <div className="footer-bottom-links">
           <a href="#">Privacy Policy</a>

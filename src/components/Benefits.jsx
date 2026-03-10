@@ -21,7 +21,7 @@ export default function Benefits() {
         <div>
           <div className="section-label reveal">
             <div className="section-label-line" />
-            <span className="section-label-text">Why Uncaged</span>
+            <span className="section-label-text">Why Veloce</span>
           </div>
           <h2 className="section-title reveal reveal-delay-1">
             Built Different<em>.</em><br />By Design

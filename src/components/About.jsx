@@ -17,7 +17,7 @@ export default function About() {
             <span className="about-inner-text">EST. 2023</span>
           </div>
           <div className="about-block about-block--2">
-            <span className="about-inner-text-2">Uncaged</span>
+            <span className="about-inner-text-2">Veloce</span>
           </div>
           <div className="about-accent-line" />
           <div className="about-bg-num">US</div>
@@ -35,7 +35,7 @@ export default function About() {
           </h2>
 
           <p className="about-copy reveal reveal-delay-2">
-            Uncaged Studio is a boutique digital agency that{' '}
+            Veloce Studio is a boutique digital agency that{' '}
             <strong>builds websites people actually remember</strong>. We combine sharp
             strategy with obsessive craft — every pixel, every interaction, every
             millisecond of load time is deliberate.
