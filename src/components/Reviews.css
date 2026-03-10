@@ -1,0 +1,79 @@
+.reviews { background: var(--bg2); }
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 64px;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border);
+}
+.review-card {
+  background: var(--bg2);
+  padding: 48px 40px;
+  transition: background 0.3s;
+}
+.review-card:hover { background: var(--bg3); }
+
+.review-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  line-height: 0.8;
+  color: var(--red);
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+.review-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--fg);
+  margin-bottom: 32px;
+}
+.review-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+.star { color: var(--red); font-size: 12px; }
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.review-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--teal-pale);
+  flex-shrink: 0;
+}
+.review-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.review-role {
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+}

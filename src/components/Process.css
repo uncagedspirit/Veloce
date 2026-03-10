@@ -1,0 +1,61 @@
+.process { background: var(--bg); }
+
+.process-steps {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+.process-connector {
+  position: absolute;
+  top: 28px;
+  left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-bright), var(--border-bright), transparent);
+}
+
+.process-step {
+  padding: 0 32px;
+}
+
+.process-dot {
+  width: 56px; height: 56px;
+  border: 1px solid var(--border-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  transition: all 0.3s;
+}
+.process-step:hover .process-dot {
+  background: var(--red);
+  color: var(--bg);
+  border-color: var(--red);
+}
+
+.process-step-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.process-step-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+}
+
+@media (max-width: 1024px) {
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 48px; }
+  .process-connector { display: none; }
+  .process-step { padding: 0; }
+}

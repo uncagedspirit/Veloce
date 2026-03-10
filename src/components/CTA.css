@@ -1,0 +1,96 @@
+.cta {
+  background: var(--red);
+  padding: 120px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, transparent 60%);
+}
+.cta-bg-text {
+  position: absolute;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(80px, 15vw, 200px);
+  font-weight: 800;
+  color: rgba(0,0,0,0.1);
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-transform: uppercase;
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+.cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+.cta-label {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(7,12,12,0.6);
+  margin-bottom: 24px;
+  font-family: 'DM Sans', sans-serif;
+}
+.cta-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--bg);
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+}
+.cta-title em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.1em;
+  text-transform: none;
+}
+.cta-sub {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(7,12,12,0.7);
+  margin-bottom: 48px;
+  max-width: 460px;
+}
+.cta-actions { margin-bottom: 20px; }
+
+.btn-dark {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg);
+  background: var(--bg);
+  padding: 16px 36px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s;
+  cursor: none;
+}
+.btn-dark:hover { background: var(--bg3); }
+
+.cta-contact {
+  font-size: 13px;
+  color: rgba(7,12,12,0.6);
+  letter-spacing: 0.05em;
+}
+.cta-contact a {
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(7,12,12,0.4);
+}
+
+@media (max-width: 1024px) {
+  .cta { padding: 80px 24px; }
+}

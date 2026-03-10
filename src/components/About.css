@@ -1,0 +1,112 @@
+.about {
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.about-glow {
+  position: absolute;
+  right: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(28, 79, 79, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* Visual */
+.about-visual {
+  position: relative;
+  height: 480px;
+}
+.about-block {
+  position: absolute;
+  overflow: hidden;
+}
+.about-block--1 {
+  width: 65%;
+  height: 70%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, var(--teal) 0%, #0D2E2E 100%);
+}
+.about-block--2 {
+  width: 50%;
+  height: 55%;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(135deg, #1A1A1A 0%, var(--bg3) 100%);
+  border: 1px solid var(--border-bright);
+}
+.about-accent-line {
+  position: absolute;
+  width: 2px;
+  height: 120px;
+  background: var(--red);
+  right: 38%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.about-bg-num {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 120px;
+  font-weight: 800;
+  color: var(--border);
+  line-height: 1;
+  z-index: -1;
+  letter-spacing: -0.05em;
+}
+.about-inner-text {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  color: var(--fg-dim);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.about-inner-text-2 {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  color: var(--red);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+}
+
+/* Copy */
+.about-copy {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--fg-dim);
+  margin-bottom: 32px;
+}
+.about-copy strong {
+  color: var(--fg);
+  font-weight: 500;
+}
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+@media (max-width: 1024px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-visual { display: none; }
+}
