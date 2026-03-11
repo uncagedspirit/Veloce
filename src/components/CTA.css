@@ -61,8 +61,15 @@
   margin-bottom: 48px;
   max-width: 460px;
 }
-.cta-actions { margin-bottom: 20px; }
+.cta-actions {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
 
+/* Primary button */
 .btn-dark {
   font-family: 'Syne', sans-serif;
   font-size: 12px;
@@ -73,11 +80,68 @@
   background: var(--bg);
   padding: 16px 36px;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   transition: background 0.3s;
   cursor: none;
+  border: none;
+  flex-shrink: 0;
 }
 .btn-dark:hover { background: var(--bg3); }
+
+/* ── Second button ───────────────────────────────────────────────────── */
+.cta-btn-soft {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(7, 12, 12, 0.18);
+  border: 1.5px solid rgba(7, 12, 12, 0.55);
+  padding: 16px 28px;
+  cursor: none;
+  transition: all 0.25s;
+  position: relative;
+  flex-shrink: 0;
+}
+.cta-btn-soft:hover {
+  background: rgba(7, 12, 12, 0.32);
+  border-color: rgba(7, 12, 12, 0.8);
+}
+
+.cta-btn-soft-icon {
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  font-size: 9px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--bg);
+  color: var(--red);
+  padding: 3px 8px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.cta-btn-soft-main {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--bg);
+}
+
+.cta-btn-soft-sub {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(7, 12, 12, 0.65);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
 
 .cta-contact {
   font-size: 13px;
@@ -93,4 +157,5 @@
 
 @media (max-width: 1024px) {
   .cta { padding: 80px 24px; }
+  .cta-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
 }

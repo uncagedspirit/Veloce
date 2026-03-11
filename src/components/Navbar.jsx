@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -24,9 +25,9 @@ export default function Navbar() {
         ))}
       </ul>
 
-      <a href="#cta" className="nav-cta">
+      <Link to="/start-project" className="nav-cta">
         Start a Project
-      </a>
+      </Link>
     </nav>
   );
 }

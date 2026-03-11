@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Hero.css';
 
 const TICKER_ITEMS = [
@@ -10,15 +11,12 @@ export default function Hero() {
 
   return (
     <section id="hero" className="hero">
-      {/* Background */}
       <div className="hero-bg" />
 
-      {/* Motion streaks */}
       <div className="hero-streak hero-streak--1" />
       <div className="hero-streak hero-streak--2" />
       <div className="hero-streak hero-streak--3" />
 
-      {/* Main content */}
       <div className="hero-content">
         <div className="hero-eyebrow">
           <div className="hero-eyebrow-line" />
@@ -42,14 +40,13 @@ export default function Hero() {
           <a href="#projects" className="btn-primary">
             <span>See Our Work</span>
           </a>
-          <a href="#cta" className="btn-outline">
+          <Link to="/start-project" className="btn-outline">
             <div className="btn-outline-arrow" />
             Start a Project
-          </a>
+          </Link>
         </div>
       </div>
 
-      {/* Scrolling ticker */}
       <div className="hero-ticker">
         <div className="ticker-track">
           {items.map((item, i) => (

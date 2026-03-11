@@ -206,31 +206,35 @@ export default function LeadCaptureForm({ onComplete }) {
     setError('');
   }, [answers, q, current, triggerSave]);
 
-  const submit = useCallback(async (finalAnswers) => {
+const submit = useCallback(async (finalAnswers) => {
     setPhase('submitting');
+    let leadId = null;
+
     try {
       const lead = await SupabaseService.createLead({
-        name: finalAnswers.name,
-        email: finalAnswers.email,
-        company: finalAnswers.company || null,
-        website: finalAnswers.website || null,
+        name:         finalAnswers.name,
+        email:        finalAnswers.email,
+        company:      finalAnswers.company      || null,
+        website:      finalAnswers.website      || null,
         project_type: finalAnswers.project_type || null,
-        budget: finalAnswers.budget || null,
-        timeline: finalAnswers.timeline || null,
-        description: finalAnswers.description || null,
+        budget:       finalAnswers.budget       || null,
+        timeline:     finalAnswers.timeline     || null,
+        description:  finalAnswers.description  || null,
         status: 'new',
       });
-      const leadId = lead?.id || `local_${Date.now()}`;
-      DraftManager.saveLead({ ...finalAnswers, _id: leadId, _step: QUESTIONS.length });
-      setPhase('done');
-      onComplete?.(leadId, finalAnswers);
+
+      // lead.id is the real UUID from Supabase
+      leadId = lead?.id ?? null;
     } catch (err) {
       console.error('Lead submission error:', err);
-      // Still continue — lead is saved locally
-      DraftManager.saveLead({ ...finalAnswers, _id: `local_${Date.now()}`, _step: QUESTIONS.length });
-      setPhase('done');
-      onComplete?.(`local_${Date.now()}`, finalAnswers);
+      // leadId stays null — questionnaire will save without a FK link
     }
+
+    // Save to draft: _id is either a real UUID or null (never "local_XYZ")
+    DraftManager.saveLead({ ...finalAnswers, _id: leadId, _step: QUESTIONS.length });
+    setPhase('done');
+    // Pass real UUID (or null) to parent — DiscoveryQuestionnaire handles null safely
+    onComplete?.(leadId, finalAnswers);
   }, [onComplete]);
 
   const handleKeyDown = (e) => {

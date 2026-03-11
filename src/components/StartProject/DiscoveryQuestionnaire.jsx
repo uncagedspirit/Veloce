@@ -394,33 +394,42 @@ export default function DiscoveryQuestionnaire({ leadId, onComplete }) {
     }
   };
 
+  const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
   const handleSubmit = async () => {
     setPhase('submitting');
+
+    // Resolve a real UUID lead_id, or null if we only have a local fallback
+    const rawLeadId = leadId || DraftManager.getLeadId();
+    const resolvedLeadId = rawLeadId && UUID_RE.test(rawLeadId) ? rawLeadId : null;
+
     try {
       await SupabaseService.submitQuestionnaire({
-        lead_id: leadId || DraftManager.getLeadId(),
-        business_type: answers.business_type,
-        target_audience: answers.target_audience,
-        website_goal: answers.website_goal,
-        problem_to_solve: answers.problem_to_solve,
-        brand_personality: answers.brand_personality,
-        design_spectrum: answers.design_spectrum,
-        inspiration_sites: answers.inspiration_sites,
-        pages_needed: answers.pages_needed,
-        content_status: answers.content_status,
-        brand_assets: answers.brand_assets,
-        has_domain: answers.has_domain,
-        has_hosting: answers.has_hosting,
-        features_required: answers.features_required,
-        cms_preference: answers.cms_preference,
-        marketing_tools: answers.marketing_tools,
-        seo_level: answers.seo_level,
+        lead_id:            resolvedLeadId,   // null is fine — service strips it
+        business_type:      answers.business_type,
+        target_audience:    answers.target_audience,
+        website_goal:       answers.website_goal,
+        problem_to_solve:   answers.problem_to_solve,
+        brand_personality:  answers.brand_personality,
+        design_spectrum:    answers.design_spectrum,
+        inspiration_sites:  answers.inspiration_sites,
+        pages_needed:       answers.pages_needed,
+        content_status:     answers.content_status,
+        brand_assets:       answers.brand_assets,
+        has_domain:         answers.has_domain,
+        has_hosting:        answers.has_hosting,
+        features_required:  answers.features_required,
+        cms_preference:     answers.cms_preference,
+        marketing_tools:    answers.marketing_tools,
+        seo_level:          answers.seo_level,
         success_definition: answers.success_definition,
-        business_outcome: answers.business_outcome,
+        business_outcome:   answers.business_outcome,
       });
     } catch (err) {
       console.error('Questionnaire submit error:', err);
+      // Still mark as done — data is in the draft, can be retried
     }
+
     DraftManager.clear();
     setPhase('done');
     onComplete?.();

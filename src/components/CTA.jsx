@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import './CTA.css';
 
 export default function CTA() {
+  const navigate = useNavigate();
+
   return (
     <section id="cta" className="cta">
       <div className="cta-bg-text">START</div>
@@ -19,6 +22,11 @@ export default function CTA() {
           <a href="mailto:Veloce.studio@proton.me" className="btn-dark">
             Email Us Directly
           </a>
+          <button className="cta-btn-soft" onClick={() => navigate('/start-project')}>
+            <span className="cta-btn-soft-icon">No commitment</span>
+            <span className="cta-btn-soft-main">Just share your idea</span>
+            <span className="cta-btn-soft-sub">5 min · zero pressure</span>
+          </button>
         </div>
         <p className="cta-contact">
           Or write to{' '}
