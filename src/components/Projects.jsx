@@ -1,13 +1,22 @@
 import { useSectionReveal } from '../hooks/useReveal';
 import './Projects.css';
 
-// Drop your screenshots in src/assets/projects/ — filenames must match exactly.
-// Windows default names are fine: Screenshot.png, etc. — just rename to these.
-import ssFrameverse  from '../assets/projects/frameverse.png';
-import ssBrainwave   from '../assets/projects/brainwave.png';
-import ssMeridian    from '../assets/projects/meridian.png';
-import ssNorthpeak   from '../assets/projects/northpeak.png';
-import ssPortfolio   from '../assets/projects/portfolio.png';
+// Grab every image in src/assets/projects/ at build time.
+// If the folder is empty or doesn't exist yet, this returns {} — no build error.
+const screenshots = import.meta.glob(
+  '../assets/projects/*.{png,jpg,jpeg,webp}',
+  { eager: true }
+);
+
+// Helper — returns the image URL by filename stem, or null if not uploaded yet
+function getScreenshot(stem) {
+  for (const [path, mod] of Object.entries(screenshots)) {
+    // path looks like "../assets/projects/frameverse.png"
+    const filename = path.split('/').pop().replace(/\.[^.]+$/, ''); // "frameverse"
+    if (filename === stem) return mod.default;
+  }
+  return null;
+}
 
 const PROJECTS = [
   {
@@ -16,7 +25,7 @@ const PROJECTS = [
     title: 'FrameVerse',
     sub: 'Full-stack web app for a local frame business — browse, customise & order online',
     href: 'https://frameverse.netlify.app/',
-    screenshot: ssFrameverse,
+    img: getScreenshot('frameverse'),
   },
   {
     num: '02',
@@ -24,7 +33,7 @@ const PROJECTS = [
     title: 'Brainwave',
     sub: 'High-impact AI product landing page with modern glassmorphism aesthetic',
     href: 'https://aibrainwave.netlify.app/',
-    screenshot: ssBrainwave,
+    img: getScreenshot('brainwave'),
   },
   {
     num: '03',
@@ -32,7 +41,7 @@ const PROJECTS = [
     title: 'Meridian Builds',
     sub: 'Premium real estate & builder showcase — clean, authoritative presence',
     href: 'https://meridian-builds.vercel.app/',
-    screenshot: ssMeridian,
+    img: getScreenshot('meridian'),
   },
   {
     num: '04',
@@ -40,7 +49,7 @@ const PROJECTS = [
     title: 'NorthPeak Advisory',
     sub: 'Sophisticated site for a financial advisory firm — trust, clarity, conversions',
     href: 'https://northpeak-advisory.vercel.app/',
-    screenshot: ssNorthpeak,
+    img: getScreenshot('northpeak'),
   },
   {
     num: '05',
@@ -48,7 +57,7 @@ const PROJECTS = [
     title: 'Saakshi Kobarne',
     sub: 'Personal portfolio — bold, expressive design with smooth interactions',
     href: 'https://uncagedspirit.github.io/portfolio/',
-    screenshot: ssPortfolio,
+    img: getScreenshot('portfolio'),
   },
 ];
 
@@ -90,24 +99,28 @@ export default function Projects() {
             rel="noopener noreferrer"
             className={`project-card ${i === 0 ? 'project-card--featured' : ''} reveal${i > 0 ? ` reveal-delay-${Math.min(i, 5)}` : ''}`}
           >
-            {/* Contained screenshot — sits in the upper portion of the card */}
-            <div className="project-preview-wrap">
-              <img
-                src={p.screenshot}
-                alt={`${p.title} screenshot`}
-                className="project-preview-img"
-                loading="lazy"
-              />
-              <div className="project-preview-fade" />
-            </div>
+            {/* Screenshot — only rendered if the file exists */}
+            {p.img && (
+              <div className="project-preview-wrap">
+                <img
+                  src={p.img}
+                  alt={`${p.title} screenshot`}
+                  className="project-preview-img"
+                  loading="lazy"
+                />
+                <div className="project-preview-fade" />
+              </div>
+            )}
 
-            {/* Decorative number */}
+            {/* Fallback gradient background when no screenshot yet */}
+            {!p.img && <div className={`project-bg bg-${(i % 5) + 1}`} />}
+
+            <div className="project-lines" />
+            <div className="project-overlay" />
             <div className="project-deco">{p.num}</div>
 
-            {/* Arrow appears on hover */}
             <div className="project-arrow"><ArrowIcon /></div>
 
-            {/* Text info — always visible at bottom */}
             <div className="project-content">
               <div className="project-cat">{p.cat}</div>
               <div className="project-title">{p.title}</div>
