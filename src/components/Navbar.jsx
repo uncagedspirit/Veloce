@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const NAV_ITEMS = ['Services', 'Work', 'Process', 'Reviews', 'FAQ'];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location  = useLocation();
+  const navigate  = useNavigate();
+  const isHome    = location.pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -27,21 +30,41 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', onKey);
   }, []);
 
+  // For nav items: on homepage use anchor scroll, on other pages navigate
   const handleNavClick = (e, item) => {
     setMobileOpen(false);
+
+    // "Work" always goes to the dedicated projects page
+    if (item === 'Work') {
+      e.preventDefault();
+      navigate('/projects');
+      return;
+    }
+
+    // Other items: if not on homepage, go home first then scroll
+    if (!isHome) {
+      e.preventDefault();
+      navigate(`/#${item.toLowerCase()}`);
+    }
+    // If on homepage, the default <a href="#x"> scroll behaviour handles it
   };
 
   return (
     <>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <a href="#" className="nav-logo">
+        <a href="/" className="nav-logo">
           VELOCE<span>.</span>STUDIO
         </a>
 
         <ul className="nav-links">
           {NAV_ITEMS.map((item) => (
             <li key={item}>
-              <a href={`#${item.toLowerCase()}`}>{item}</a>
+              <a
+                href={item === 'Work' ? '/projects' : `#${item.toLowerCase()}`}
+                onClick={(e) => handleNavClick(e, item)}
+              >
+                {item}
+              </a>
             </li>
           ))}
         </ul>
@@ -74,8 +97,8 @@ export default function Navbar() {
                 style={{ animationDelay: mobileOpen ? `${i * 0.07}s` : '0s' }}
               >
                 <a
-                  href={`#${item.toLowerCase()}`}
-                  onClick={() => setMobileOpen(false)}
+                  href={item === 'Work' ? '/projects' : `#${item.toLowerCase()}`}
+                  onClick={(e) => handleNavClick(e, item)}
                 >
                   <span className="nav-mobile-num">0{i + 1}</span>
                   {item}

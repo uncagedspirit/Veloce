@@ -37,7 +37,8 @@ export default function Hero() {
         </p>
 
         <div className="hero-actions">
-          <a href="#projects" className="btn-primary">
+          {/* Scrolls to the projects section on the homepage */}
+          <a href="#work" className="btn-primary">
             <span>See Our Work</span>
           </a>
           <Link to="/start-project" className="btn-outline">

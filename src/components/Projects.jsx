@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useSectionReveal } from '../hooks/useReveal';
 import './Projects.css';
 
@@ -85,10 +86,10 @@ export default function Projects() {
             Projects <em>Delivered</em>
           </h2>
         </div>
-        <a href="#cta" className="btn-outline reveal">
+        <Link to="/projects" className="btn-outline reveal">
           <div className="btn-outline-arrow" />
           All Projects
-        </a>
+        </Link>
       </div>
 
       <div className="projects-grid">
@@ -100,13 +101,13 @@ export default function Projects() {
             rel="noopener noreferrer"
             className={`project-card ${i === 0 ? 'project-card--featured' : ''} reveal${i > 0 ? ` reveal-delay-${Math.min(i, 5)}` : ''}`}
           >
-            {/* ── Layer 1: gradient background — always present ── */}
+            {/* Layer 1: gradient background — always present */}
             <div className={`project-bg ${p.bg}`} />
 
-            {/* ── Layer 2: grid lines texture ── */}
+            {/* Layer 2: grid lines texture */}
             <div className="project-lines" />
 
-            {/* ── Layer 3: screenshot, contained in upper portion (only if file exists) ── */}
+            {/* Layer 3: screenshot, contained in upper portion */}
             {p.img && (
               <div className="project-preview-wrap">
                 <img
@@ -119,11 +120,10 @@ export default function Projects() {
               </div>
             )}
 
-            {/* ── Layer 4: bottom overlay so text always reads ── */}
+            {/* Layer 4: bottom overlay so text always reads */}
             <div className="project-overlay" />
 
             <div className="project-deco">{p.num}</div>
-
             <div className="project-arrow"><ArrowIcon /></div>
 
             <div className="project-content">
