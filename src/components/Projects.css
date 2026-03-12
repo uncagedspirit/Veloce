@@ -7,6 +7,7 @@
   margin-bottom: 64px;
 }
 
+/* ── Original 2-col grid, featured card spans 2 rows ── */
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -20,75 +21,121 @@
   overflow: hidden;
   aspect-ratio: 16 / 10;
   cursor: none;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s;
 }
 .project-card--featured {
   grid-row: 1 / 3;
   aspect-ratio: auto;
 }
+.project-card:hover { background: var(--bg3); }
 
-/* Hover effects */
-.project-bg {
+/* ── Screenshot container — upper ~55% of card ── */
+.project-preview-wrap {
   position: absolute;
-  inset: 0;
-  transition: transform 0.6s ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* takes up 58% of the card height, leaving room for text below */
+  height: 58%;
+  overflow: hidden;
 }
-.project-card:hover .project-bg { transform: scale(1.05); }
 
-/* Gradient backgrounds */
-.bg-1 { background: linear-gradient(135deg, #1C3C3C 0%, #0D2020 50%, #1a0808 100%); }
-.bg-2 { background: linear-gradient(135deg, #1a0a0a 0%, #2C1010 50%, #0D2828 100%); }
-.bg-3 { background: linear-gradient(135deg, #0a1520 0%, #1C2C3C 50%, #0f0f0f 100%); }
-.bg-4 { background: linear-gradient(135deg, #1a1a0a 0%, #252510 50%, #101520 100%); }
-.bg-5 { background: linear-gradient(135deg, #200a0a 0%, #1C1020 50%, #0a1a1a 100%); }
+.project-card--featured .project-preview-wrap {
+  height: 62%;
+}
 
-.project-lines {
-  position: absolute;
-  inset: 0;
-  opacity: 0.15;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(212,232,232,0.1) 40px, rgba(212,232,232,0.1) 41px),
-    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(212,232,232,0.1) 40px, rgba(212,232,232,0.1) 41px);
+.project-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transform: scale(1.03);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: brightness(0.75) saturate(0.85);
 }
-.project-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(7,12,12,0.9) 0%, transparent 50%);
+.project-card:hover .project-preview-img {
+  transform: scale(1.0);
+  filter: brightness(0.65) saturate(0.8);
 }
+
+/* Gradient fade from screenshot into the dark card bg */
+.project-preview-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg2) 100%);
+  transition: background 0.3s;
+}
+.project-card:hover .project-preview-fade {
+  background: linear-gradient(to bottom, transparent 0%, var(--bg3) 100%);
+}
+
+/* Thin red accent line along bottom on hover */
+.project-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.project-card:hover::after { transform: scaleX(1); }
+
+/* ── Decorative bg number ── */
 .project-deco {
   position: absolute;
   font-family: 'Syne', sans-serif;
   font-size: 80px;
   font-weight: 800;
-  color: rgba(212,232,232,0.03);
-  top: 20px;
-  right: 20px;
+  color: rgba(212, 232, 232, 0.04);
+  top: 12px;
+  right: 16px;
   line-height: 1;
+  pointer-events: none;
+  user-select: none;
 }
 
+/* ── Arrow — appears top-right on hover ── */
 .project-arrow {
   position: absolute;
-  top: 32px; right: 32px;
-  width: 40px; height: 40px;
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--border-bright);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: translateY(-8px);
-  transition: all 0.4s ease;
+  transform: translateY(-6px);
+  transition: all 0.35s ease;
   color: var(--fg);
+  background: rgba(7, 12, 12, 0.6);
+  backdrop-filter: blur(4px);
 }
 .project-card:hover .project-arrow {
   opacity: 1;
   transform: translateY(0);
+  border-color: var(--red);
+  color: var(--red);
 }
 
+/* ── Text content — pinned to bottom ── */
 .project-content {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 32px;
-  transform: translateY(8px);
-  transition: transform 0.4s ease;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 28px 24px;
+  transform: translateY(5px);
+  transition: transform 0.35s ease;
 }
 .project-card:hover .project-content { transform: translateY(0); }
 
@@ -97,30 +144,57 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--red);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .project-cat::before {
   content: '';
-  width: 20px; height: 1px;
+  width: 16px;
+  height: 1px;
   background: var(--red);
+  flex-shrink: 0;
 }
+
 .project-title {
   font-family: 'Syne', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.01em;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  color: var(--fg);
 }
+.project-card--featured .project-title { font-size: 22px; }
+
 .project-sub {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--fg-dim);
+  line-height: 1.5;
 }
 
+/* ── Responsive ── */
 @media (max-width: 1024px) {
+  .projects-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
   .projects-grid { grid-template-columns: 1fr; }
-  .project-card--featured { grid-row: auto; aspect-ratio: 16/10; }
+  .project-card--featured {
+    grid-row: auto;
+    aspect-ratio: 16 / 10;
+  }
+  .project-card--featured .project-preview-wrap { height: 58%; }
+  .project-card--featured .project-title { font-size: 18px; }
+}
+
+@media (max-width: 480px) {
+  .project-card { aspect-ratio: 4 / 3; }
+  .project-preview-wrap { height: 52%; }
+  .project-content { padding: 16px 20px 20px; }
+  .project-title { font-size: 16px; }
+  .project-deco { font-size: 56px; }
 }
