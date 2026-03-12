@@ -5,19 +5,6 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './ProjectsPage.css';
 
-const screenshots = import.meta.glob(
-  '../assets/projects/*.{png,jpg,jpeg,webp}',
-  { eager: true }
-);
-
-function getScreenshot(stem) {
-  for (const [path, mod] of Object.entries(screenshots)) {
-    const filename = path.split('/').pop().replace(/\.[^.]+$/, '');
-    if (filename === stem) return mod.default;
-  }
-  return null;
-}
-
 const PROJECTS = [
   {
     num: '01',
@@ -26,7 +13,7 @@ const PROJECTS = [
     description: 'A full-stack web application built for a local frame business. Customers can browse the catalogue, customise frame options, and place orders — all from a sleek, intuitive interface built for conversions.',
     tags: ['React', 'Web App', 'E-Commerce', 'UI/UX'],
     href: 'https://frameverse.netlify.app/',
-    img: getScreenshot('frameverse'),
+    img: '/projects/frameverse.png',
     bg: 'bg-1',
     year: '2024',
   },
@@ -37,7 +24,7 @@ const PROJECTS = [
     description: 'A high-impact landing page for an AI SaaS product. Built with a bold glassmorphism aesthetic, animated sections, and a conversion-focused layout designed to capture leads and communicate value fast.',
     tags: ['Landing Page', 'AI / SaaS', 'Animations', 'React'],
     href: 'https://aibrainwave.netlify.app/',
-    img: getScreenshot('brainwave'),
+    img: '/projects/brainwave.png',
     bg: 'bg-2',
     year: '2024',
   },
@@ -48,7 +35,7 @@ const PROJECTS = [
     description: 'A premium showcase site for a real estate builder. Clean architecture, strong typography, and a confident visual language that positions the brand as a market leader in premium property development.',
     tags: ['Web Design', 'Real Estate', 'Brand', 'Next.js'],
     href: 'https://meridian-builds.vercel.app/',
-    img: getScreenshot('meridian'),
+    img: '/projects/meridian.png',
     bg: 'bg-3',
     year: '2024',
   },
@@ -59,7 +46,7 @@ const PROJECTS = [
     description: 'A sophisticated web presence for a financial advisory firm. Every design decision reinforces trust and authority — from the restrained colour palette to the carefully crafted copy hierarchy.',
     tags: ['Web Design', 'Finance', 'Conversion', 'Brand'],
     href: 'https://northpeak-advisory.vercel.app/',
-    img: getScreenshot('northpeak'),
+    img: '/projects/northpeak.png',
     bg: 'bg-4',
     year: '2024',
   },
@@ -70,7 +57,7 @@ const PROJECTS = [
     description: 'A bold, expressive personal portfolio designed to make a lasting first impression. Smooth scroll animations, a strong typographic voice, and a layout that puts the work front and centre.',
     tags: ['Portfolio', 'Creative', 'Animations', 'React'],
     href: 'https://uncagedspirit.github.io/portfolio/',
-    img: getScreenshot('portfolio'),
+    img: '/projects/portfolio.png',
     bg: 'bg-5',
     year: '2024',
   },
@@ -113,7 +100,7 @@ export default function ProjectsPage() {
 
         {/* ── Project rows ── */}
         <div className="pp-list">
-          {PROJECTS.map((p, i) => (
+          {PROJECTS.map((p) => (
             <div key={p.num} className="pp-row">
 
               {/* Big index number */}
@@ -128,17 +115,14 @@ export default function ProjectsPage() {
               >
                 <div className={`pp-screen-bg ${p.bg}`} />
                 <div className="pp-screen-lines" />
-                {p.img && (
-                  <>
-                    <img
-                      src={p.img}
-                      alt={`${p.title} screenshot`}
-                      className="pp-screen-img"
-                      loading="lazy"
-                    />
-                    <div className="pp-screen-fade" />
-                  </>
-                )}
+                <img
+                  src={p.img}
+                  alt={`${p.title} screenshot`}
+                  className="pp-screen-img"
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                />
+                <div className="pp-screen-fade" />
                 <div className="pp-screen-hover-label">
                   <ArrowIcon /> View Live Site
                 </div>

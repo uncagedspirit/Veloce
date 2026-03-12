@@ -2,19 +2,6 @@ import { Link } from 'react-router-dom';
 import { useSectionReveal } from '../hooks/useReveal';
 import './Projects.css';
 
-const screenshots = import.meta.glob(
-  '../assets/projects/*.{png,jpg,jpeg,webp}',
-  { eager: true }
-);
-
-function getScreenshot(stem) {
-  for (const [path, mod] of Object.entries(screenshots)) {
-    const filename = path.split('/').pop().replace(/\.[^.]+$/, '');
-    if (filename === stem) return mod.default;
-  }
-  return null;
-}
-
 const PROJECTS = [
   {
     num: '01',
@@ -22,7 +9,7 @@ const PROJECTS = [
     title: 'FrameVerse',
     sub: 'Full-stack web app for a local frame business — browse, customise & order online',
     href: 'https://frameverse.netlify.app/',
-    img: getScreenshot('frameverse'),
+    img: '/projects/frameverse.png',
     bg: 'bg-1',
   },
   {
@@ -31,7 +18,7 @@ const PROJECTS = [
     title: 'Brainwave',
     sub: 'High-impact AI product landing page with modern glassmorphism aesthetic',
     href: 'https://aibrainwave.netlify.app/',
-    img: getScreenshot('brainwave'),
+    img: '/projects/brainwave.png',
     bg: 'bg-2',
   },
   {
@@ -40,7 +27,7 @@ const PROJECTS = [
     title: 'Meridian Builds',
     sub: 'Premium real estate & builder showcase — clean, authoritative presence',
     href: 'https://meridian-builds.vercel.app/',
-    img: getScreenshot('meridian'),
+    img: '/projects/meridian.png',
     bg: 'bg-3',
   },
   {
@@ -49,7 +36,7 @@ const PROJECTS = [
     title: 'NorthPeak Advisory',
     sub: 'Sophisticated site for a financial advisory firm — trust, clarity, conversions',
     href: 'https://northpeak-advisory.vercel.app/',
-    img: getScreenshot('northpeak'),
+    img: '/projects/northpeak.png',
     bg: 'bg-4',
   },
   {
@@ -58,7 +45,7 @@ const PROJECTS = [
     title: 'Saakshi Kobarne',
     sub: 'Personal portfolio — bold, expressive design with smooth interactions',
     href: 'https://uncagedspirit.github.io/portfolio/',
-    img: getScreenshot('portfolio'),
+    img: '/projects/portfolio.png',
     bg: 'bg-5',
   },
 ];
@@ -107,20 +94,19 @@ export default function Projects() {
             {/* Layer 2: grid lines texture */}
             <div className="project-lines" />
 
-            {/* Layer 3: screenshot, contained in upper portion */}
-            {p.img && (
-              <div className="project-preview-wrap">
-                <img
-                  src={p.img}
-                  alt={`${p.title} screenshot`}
-                  className="project-preview-img"
-                  loading="lazy"
-                />
-                <div className="project-preview-fade" />
-              </div>
-            )}
+            {/* Layer 3: screenshot */}
+            <div className="project-preview-wrap">
+              <img
+                src={p.img}
+                alt={`${p.title} screenshot`}
+                className="project-preview-img"
+                loading="lazy"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
+              <div className="project-preview-fade" />
+            </div>
 
-            {/* Layer 4: bottom overlay so text always reads */}
+            {/* Layer 4: bottom overlay */}
             <div className="project-overlay" />
 
             <div className="project-deco">{p.num}</div>
