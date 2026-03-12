@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SupabaseService } from '../../services/supabaseService';
 
 const CONTACT_METHODS = ['Email', 'Phone', 'Video call', 'Any'];
 
@@ -8,17 +9,24 @@ export default function TalkToUs({ onClose }) {
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const set = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }));
 
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.message) return;
     setSubmitting(true);
-    // In production: send to your backend / email service
-    console.info('[TalkToUs] Form submitted:', form);
-    await new Promise(r => setTimeout(r, 800));
-    setSubmitted(true);
-    setSubmitting(false);
+    setError('');
+
+    try {
+      await SupabaseService.submitContactMessage(form);
+      setSubmitted(true);
+    } catch (err) {
+      console.error('[TalkToUs] Submit error:', err);
+      setError('Something went wrong — please try emailing us directly at Veloce.studio@proton.me');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -124,7 +132,9 @@ export default function TalkToUs({ onClose }) {
         </div>
 
         <div className="sp-form-field">
-          <label className="sp-form-label">Company <span style={{ fontSize: 10, color: 'var(--fg-muted)', fontWeight: 300 }}>(optional)</span></label>
+          <label className="sp-form-label">
+            Company <span style={{ fontSize: 10, color: 'var(--fg-muted)', fontWeight: 300 }}>(optional)</span>
+          </label>
           <input
             className="sp-input"
             type="text"
@@ -158,6 +168,12 @@ export default function TalkToUs({ onClose }) {
             style={{ minHeight: 130 }}
           />
         </div>
+
+        {error && (
+          <div className="sp-field-error" style={{ marginBottom: 16, fontSize: 13 }}>
+            {error}
+          </div>
+        )}
 
         <button
           className="sp-btn-continue"

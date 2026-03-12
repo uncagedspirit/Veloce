@@ -21,10 +21,6 @@ async function req(path, method = 'GET', body = null) {
   }
 
   const url = `${SUPABASE_URL}/rest/v1${path}`;
-
-  console.log(`[req] ${method} ${url}`);
-  console.log('[req] body:', JSON.stringify(body, null, 2));
-
   const res = await fetch(url, {
     method,
     headers: headers(),
@@ -32,12 +28,7 @@ async function req(path, method = 'GET', body = null) {
   });
 
   const text = await res.text();
-  console.log(`[req] response ${res.status}:`, text);
-
-  if (!res.ok) {
-    throw new Error(`Supabase ${res.status}: ${text || res.statusText}`);
-  }
-
+  if (!res.ok) throw new Error(`Supabase ${res.status}: ${text || res.statusText}`);
   return text ? JSON.parse(text) : null;
 }
 
@@ -49,8 +40,6 @@ export const SupabaseService = {
       console.info('[Supabase DEV] createLead →', { id, ...data });
       return { id, ...data };
     }
-
-    console.log('[createLead] payload:', data);
     const result = await req('/leads', 'POST', data);
     const row = Array.isArray(result) ? result[0] : result;
     if (!row?.id) throw new Error('Supabase did not return inserted lead row');
@@ -69,22 +58,36 @@ export const SupabaseService = {
 
   async submitQuestionnaire(data) {
     const payload = { ...data };
-
     if (payload.lead_id && !isValidUUID(payload.lead_id)) {
       console.warn('[SupabaseService] Dropping invalid lead_id:', payload.lead_id);
       delete payload.lead_id;
     }
-
     if (IS_DEV) {
       const id = crypto.randomUUID();
       console.info('[Supabase DEV] submitQuestionnaire →', { id, ...payload });
       return { id, ...payload };
     }
-
-    console.log('[submitQuestionnaire] payload:', payload);
     const result = await req('/questionnaire', 'POST', payload);
     const row = Array.isArray(result) ? result[0] : result;
     if (!row?.id) throw new Error('Supabase did not return inserted questionnaire row');
+    return row;
+  },
+
+  async submitContactMessage(data) {
+    if (IS_DEV) {
+      const id = crypto.randomUUID();
+      console.info('[Supabase DEV] submitContactMessage →', { id, ...data });
+      return { id, ...data };
+    }
+    const result = await req('/contact_messages', 'POST', {
+      name:           data.name,
+      email:          data.email,
+      company:        data.company  || null,
+      contact_method: data.contact_method || null,
+      message:        data.message,
+    });
+    const row = Array.isArray(result) ? result[0] : result;
+    if (!row?.id) throw new Error('Supabase did not return inserted contact_messages row');
     return row;
   },
 };
