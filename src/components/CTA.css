@@ -39,15 +39,14 @@
 }
 .cta-title {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(32px, 7vw, 80px);
+  /* Desktop: big. Mobile: scales down via clamp + breakpoints below */
+  font-size: clamp(40px, 6vw, 80px);
   font-weight: 800;
   line-height: 0.95;
   text-transform: uppercase;
   color: var(--bg);
   letter-spacing: -0.03em;
   margin-bottom: 32px;
-  word-break: break-word;
-  overflow-wrap: break-word;
 }
 .cta-title em {
   font-family: 'Cormorant Garamond', serif;
@@ -56,6 +55,12 @@
   font-size: 1.1em;
   text-transform: none;
 }
+/* Prevents any single word from ever hyphenating or breaking */
+.cta-title-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .cta-sub {
   font-size: 16px;
   line-height: 1.7;
@@ -71,7 +76,6 @@
   margin-bottom: 20px;
 }
 
-/* Primary button */
 .btn-dark {
   font-family: 'Syne', sans-serif;
   font-size: 12px;
@@ -91,7 +95,6 @@
 }
 .btn-dark:hover { background: var(--bg3); }
 
-/* ── Second button ── */
 .cta-btn-soft {
   display: inline-flex;
   flex-direction: column;
@@ -163,17 +166,26 @@
 /* ── 768px ── */
 @media (max-width: 768px) {
   .cta { padding: 72px 20px; }
-  .cta-sub { font-size: 15px; max-width: 100%; }
-  .cta-btn-soft { width: 100%; max-width: 300px; }
+  /* Scale down enough that "Unforgettable" fits on one line at ~768px */
+  .cta-title { font-size: clamp(32px, 5.5vw, 56px); }
+  .cta-sub { font-size: 15px; max-width: 100%; margin-bottom: 36px; }
 }
 
 /* ── 480px ── */
 @media (max-width: 480px) {
   .cta { padding: 64px 16px; }
-  .cta-title { font-size: clamp(28px, 10vw, 48px); line-height: 1.0; }
-  .cta-sub { font-size: 14px; margin-bottom: 36px; }
+  /* 8vw on 480px = 38px — "Unforgettable" at 38px Syne fits in ~300px width */
+  .cta-title { font-size: clamp(28px, 8vw, 40px); line-height: 1.05; }
+  .cta-sub { font-size: 14px; margin-bottom: 32px; }
   .cta-bg-text { display: none; }
-  .btn-dark { padding: 14px 28px; width: 100%; justify-content: center; }
-  .cta-btn-soft { width: 100%; max-width: 100%; }
   .cta-actions { width: 100%; }
+  .btn-dark { width: 100%; justify-content: center; padding: 14px 28px; }
+  .cta-btn-soft { width: 100%; }
+}
+
+/* ── 380px — smallest phones ── */
+@media (max-width: 380px) {
+  .cta { padding: 56px 14px; }
+  /* 9vw on 375px = ~34px — still fits */
+  .cta-title { font-size: clamp(24px, 9vw, 36px); }
 }

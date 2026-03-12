@@ -12,7 +12,7 @@ export default function CTA() {
         <h2 className="cta-title">
           Let's Build<br />
           <em>Something</em><br />
-          Unforgettable
+          <span className="cta-title-word">Unforgettable</span>
         </h2>
         <p className="cta-sub">
           Tell us about your project and we'll get back within 24 hours with a
