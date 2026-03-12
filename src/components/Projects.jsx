@@ -1,18 +1,14 @@
 import { useSectionReveal } from '../hooks/useReveal';
 import './Projects.css';
 
-// Grab every image in src/assets/projects/ at build time.
-// If the folder is empty or doesn't exist yet, this returns {} — no build error.
 const screenshots = import.meta.glob(
   '../assets/projects/*.{png,jpg,jpeg,webp}',
   { eager: true }
 );
 
-// Helper — returns the image URL by filename stem, or null if not uploaded yet
 function getScreenshot(stem) {
   for (const [path, mod] of Object.entries(screenshots)) {
-    // path looks like "../assets/projects/frameverse.png"
-    const filename = path.split('/').pop().replace(/\.[^.]+$/, ''); // "frameverse"
+    const filename = path.split('/').pop().replace(/\.[^.]+$/, '');
     if (filename === stem) return mod.default;
   }
   return null;
@@ -26,6 +22,7 @@ const PROJECTS = [
     sub: 'Full-stack web app for a local frame business — browse, customise & order online',
     href: 'https://frameverse.netlify.app/',
     img: getScreenshot('frameverse'),
+    bg: 'bg-1',
   },
   {
     num: '02',
@@ -34,6 +31,7 @@ const PROJECTS = [
     sub: 'High-impact AI product landing page with modern glassmorphism aesthetic',
     href: 'https://aibrainwave.netlify.app/',
     img: getScreenshot('brainwave'),
+    bg: 'bg-2',
   },
   {
     num: '03',
@@ -42,6 +40,7 @@ const PROJECTS = [
     sub: 'Premium real estate & builder showcase — clean, authoritative presence',
     href: 'https://meridian-builds.vercel.app/',
     img: getScreenshot('meridian'),
+    bg: 'bg-3',
   },
   {
     num: '04',
@@ -50,6 +49,7 @@ const PROJECTS = [
     sub: 'Sophisticated site for a financial advisory firm — trust, clarity, conversions',
     href: 'https://northpeak-advisory.vercel.app/',
     img: getScreenshot('northpeak'),
+    bg: 'bg-4',
   },
   {
     num: '05',
@@ -58,6 +58,7 @@ const PROJECTS = [
     sub: 'Personal portfolio — bold, expressive design with smooth interactions',
     href: 'https://uncagedspirit.github.io/portfolio/',
     img: getScreenshot('portfolio'),
+    bg: 'bg-5',
   },
 ];
 
@@ -99,7 +100,13 @@ export default function Projects() {
             rel="noopener noreferrer"
             className={`project-card ${i === 0 ? 'project-card--featured' : ''} reveal${i > 0 ? ` reveal-delay-${Math.min(i, 5)}` : ''}`}
           >
-            {/* Screenshot — only rendered if the file exists */}
+            {/* ── Layer 1: gradient background — always present ── */}
+            <div className={`project-bg ${p.bg}`} />
+
+            {/* ── Layer 2: grid lines texture ── */}
+            <div className="project-lines" />
+
+            {/* ── Layer 3: screenshot, contained in upper portion (only if file exists) ── */}
             {p.img && (
               <div className="project-preview-wrap">
                 <img
@@ -112,11 +119,9 @@ export default function Projects() {
               </div>
             )}
 
-            {/* Fallback gradient background when no screenshot yet */}
-            {!p.img && <div className={`project-bg bg-${(i % 5) + 1}`} />}
-
-            <div className="project-lines" />
+            {/* ── Layer 4: bottom overlay so text always reads ── */}
             <div className="project-overlay" />
+
             <div className="project-deco">{p.num}</div>
 
             <div className="project-arrow"><ArrowIcon /></div>
