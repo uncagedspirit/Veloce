@@ -206,7 +206,7 @@ export default function LeadCaptureForm({ onComplete }) {
     setError('');
   }, [answers, q, current, triggerSave]);
 
-const submit = useCallback(async (finalAnswers) => {
+  const submit = useCallback(async (finalAnswers) => {
     setPhase('submitting');
     let leadId = null;
 
@@ -223,17 +223,20 @@ const submit = useCallback(async (finalAnswers) => {
         status: 'new',
       });
 
-      // lead.id is the real UUID from Supabase
       leadId = lead?.id ?? null;
+
+      // ── GA4 conversion event ──
+      window.gtag?.('event', 'generate_lead', {
+        event_category: 'engagement',
+        event_label: finalAnswers.project_type,
+        value: 1,
+      });
     } catch (err) {
       console.error('Lead submission error:', err);
-      // leadId stays null — questionnaire will save without a FK link
     }
 
-    // Save to draft: _id is either a real UUID or null (never "local_XYZ")
     DraftManager.saveLead({ ...finalAnswers, _id: leadId, _step: QUESTIONS.length });
     setPhase('done');
-    // Pass real UUID (or null) to parent — DiscoveryQuestionnaire handles null safely
     onComplete?.(leadId, finalAnswers);
   }, [onComplete]);
 

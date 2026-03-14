@@ -19,7 +19,11 @@ export default function CTA() {
           clear scope and quote. No obligation, no fluff.
         </p>
         <div className="cta-actions">
-          <a href="mailto:Veloce.studio@proton.me" className="btn-dark">
+          <a
+            href="mailto:Veloce.studio@proton.me"
+            className="btn-dark"
+            onClick={() => window.gtag?.('event', 'click', { event_category: 'cta', event_label: 'email_direct' })}
+          >
             Email Us Directly
           </a>
           <button className="cta-btn-soft" onClick={() => navigate('/start-project')}>

@@ -20,6 +20,13 @@ export default function TalkToUs({ onClose }) {
 
     try {
       await SupabaseService.submitContactMessage(form);
+
+      // ── GA4 conversion event ──
+      window.gtag?.('event', 'contact', {
+        event_category: 'engagement',
+        event_label: form.contact_method,
+      });
+
       setSubmitted(true);
     } catch (err) {
       console.error('[TalkToUs] Submit error:', err);

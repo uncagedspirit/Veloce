@@ -5,7 +5,10 @@ import HomePage       from './pages/HomePage';
 import StartProjectPage from './pages/StartProjectPage';
 import ProjectsPage   from './pages/ProjectsPage';
 
+import { useAnalytics } from './hooks/useAnalytics';
+
 export default function App() {
+  useAnalytics();
   return (
     <BrowserRouter>
       <Routes>
