@@ -34,7 +34,7 @@ export default function CTA() {
         </div>
         <p className="cta-contact">
           Or write to{' '}
-          <a href="mailto:Veloce.studio@proton.me">Veloce.studio@proton.me</a>
+          <a href="mailto:Veloce.studio.agency@gmail.com">Veloce.studio.agency@gmail.com</a>
         </p>
       </div>
     </section>
